@@ -1,0 +1,45 @@
+<body>
+  <main>
+    <h1 style="margin-top: 50px;justify-content: center; align-items: center; display: flex;">LISTA DE ESCUELAS</h1>
+    <form>
+      <div class="table-container"
+        style="margin-top: 50px;justify-content: center; align-items: center; display: flex;">
+        <br /><br />
+        <table class="table table-bordered" style="width:60%;">
+          <caption>Total: {{ listaEscuelas.length }}</caption>
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Total Alumnos</th>
+              <th>Recurso Fiscal</th>
+              <th>¿Licenciada?</th>
+              <th>Clasificación</th>
+              <th>Fecha Registro</th>
+              <th>Facultad</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tr *ngFor="let escuela of listaEscuelas">
+            <td>{{ escuela?.idEscuela }}</td>
+            <td>{{ escuela?.nombre }}</td>
+            <td>{{ escuela?.cantidadAlumnos }}</td>
+            <td>{{ escuela?.recursoFiscal }}</td>
+            <td *ngIf="escuela?.licenciada">SI</td>
+            <td *ngIf="!escuela?.licenciada">NO</td>
+            <td>{{ escuela?.clasificacion }}</td>
+            <td>{{ escuela?.fechaConFormato }}</td>
+            <td>{{ escuela?.facultad?.nombre }}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-outline-danger" (click)="eliminarEscuela(escuela)">
+                  <em class="fas fa-trash"></em>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </main>
+</body>
