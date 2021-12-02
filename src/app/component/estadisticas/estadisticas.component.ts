@@ -17,6 +17,7 @@ import { EscuelaService } from './../../service/escuela.service';
 export class EstadisticasComponent implements OnInit {
   public listaEscuelas: Escuela[];
   public filtroFecha: Date;
+  public fechaTituloPage: Date;
   public barChartImage: string;
   public pieChartImage: string;
   public statisticsHabilitado: boolean;
@@ -44,6 +45,7 @@ export class EstadisticasComponent implements OnInit {
         .subscribe(
           (response: Escuela[]) => {
             if (response.length > 0) {
+              this.fechaTituloPage = this.filtroFecha;
               this.statisticsHabilitado = true;
               this.sendNotification(
                 NotificationType.SUCCESS,
