@@ -19,28 +19,28 @@
 
           <div class="column col-4">
             <label style="margin-right: 10px;">Nombre</label>
-            <input name="nombre" type="text" [(ngModel)]="escuela.nombre" />
+            <input [disabled]="!editModeHabilitado" name="nombre" type="text" [(ngModel)]="escuela.nombre" />
             <input name="idEscuela" type="text" [(ngModel)]="escuela.idEscuela" hidden />
           </div>
 
           <div class="column col-4">
             <label style="margin-right: 10px;">Total Alumnos</label>
-            <input name="cantidadAlumnos" type="number" [(ngModel)]="escuela.cantidadAlumnos" />
+            <input [disabled]="!editModeHabilitado" name="cantidadAlumnos" type="number" [(ngModel)]="escuela.cantidadAlumnos" />
           </div>
 
           <div class="column col-4">
             <label style="margin-right: 10px;">Recurso Fiscal</label>
-            <input name="recursoFiscal" type="number" [(ngModel)]="escuela.recursoFiscal" />
+            <input [disabled]="!editModeHabilitado" name="recursoFiscal" type="number" [(ngModel)]="escuela.recursoFiscal" />
           </div>
 
           <div class="column col-4">
             <label style="margin-right: 10px;">Clasificacion</label>
-            <input name="clasificacion" type="number" [(ngModel)]="escuela.clasificacion" />
+            <input [disabled]="!editModeHabilitado" name="clasificacion" type="number" [(ngModel)]="escuela.clasificacion" />
           </div>
 
           <div class="column col-2">
             <label>Facultad</label>
-            <select style="max-width: 65%;" name="facultad" required [(ngModel)]="facultad" class="form-control">
+            <select [disabled]="!editModeHabilitado" style="max-width: 65%;" name="facultad" required [(ngModel)]="idFacultad" class="form-control">
               <option *ngFor="let facultad of facultades" [ngValue]="facultad.idFacultad">
                 {{ facultad.nombre }}
               </option>
@@ -49,15 +49,20 @@
 
           <div class="column col-2">
             <label>Licenciada</label>
-            <select style="max-width: 65%;" name="licenciada" required [(ngModel)]="escuela.licenciada"
+            <select [disabled]="!editModeHabilitado" style="max-width: 65%;" name="licenciada" required [(ngModel)]="escuela.licenciada"
               class="form-control">
               <option value="true">SI</option>
               <option value="false">NO</option>
             </select>
           </div>
 
-          <div class="submit col-4" style="margin-top: 10px;">
-            <button>GUARDAR CAMBIOS</button>
+          <div class="column col-4">
+            <label style="margin-right: 10px;">Fecha de Registro</label>
+            <input [disabled]="!editModeHabilitado" name="fechaRegistro" type="date" [(ngModel)]="escuela.fechaRegistro" />
+          </div>
+
+          <div *ngIf="guardarButtonHabilitado" class="col-4" style="margin-top: 10px;">
+            <button class="guardarButton">GUARDAR CAMBIOS</button>
           </div>
         </div>
       </form>

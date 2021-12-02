@@ -23,4 +23,8 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/edit']);
   }
 
+  public verEstadisticas():void{
+    this.router.navigate(['/statistics']);
+  }
+
 }

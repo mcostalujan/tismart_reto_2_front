@@ -13,7 +13,7 @@ export class EscuelaService {
 
   constructor(private http: HttpClient) {}
 
-  public obtenerEscuelaPorId(idEscuela: bigint): Observable<Escuela> {
+  public obtenerEscuelaPorId(idEscuela: string): Observable<Escuela> {
     return this.http.get<Escuela>(
       `${this.host}/escuelas/buscar/id/${idEscuela}`
     );
@@ -21,6 +21,10 @@ export class EscuelaService {
 
   public obtenerTodasLasEscuelas(): Observable<Escuela[]> {
     return this.http.get<Escuela[]>(`${this.host}/escuelas/listar`);
+  }
+
+  public obtenerTodasLasEscuelasPorFecha(fecha: Date): Observable<Escuela[]> {
+    return this.http.get<Escuela[]>(`${this.host}/escuelas/listar/fecha/${fecha}`);
   }
 
   public guardarEscuela(formData: FormData): Observable<Escuela> {
@@ -36,27 +40,40 @@ export class EscuelaService {
     );
   }
 
+  public exportarEscuelasPorFechaRegistroTablaPDF(fechaRegistro: Date): Observable<Blob> {
+    return this.http.get<Blob>(`${this.host}/escuelas/exportar/pdf/fecha/${fechaRegistro}`);
+  }
+
+  public exportarEscuelasPorFechaRegistroBarchartPDF(fechaRegistro: Date): Observable<Blob> {
+    return this.http.get<Blob>(`${this.host}/escuelas/exportar/barchart/alumnosPorEscuela/pdf/fecha/${fechaRegistro}`);
+  }
+
+  public exportarEscuelasPorFechaRegistroPieChartPDF(fechaRegistro: Date): Observable<Blob> {
+    return this.http.get<Blob>(`${this.host}/escuelas/exportar/piechart/alumnosPorEscuela/pdf/fecha/${fechaRegistro}`);
+  }
+
+
   public createEscuelaSaveFormData(
-    idEscuela: bigint,
+    idEscuela: string,
     nombre: string,
-    cantidadAlumnos: number,
-    recursoFiscal: number,
-    licenciada: boolean,
-    clasificacion: number,
+    cantidadAlumnos: string,
+    recursoFiscal: string,
+    licenciada: string,
+    clasificacion: string,
     fechaRegistro: string,
-    idFacultad: bigint
+    idFacultad: string
   ): FormData {
     const formData = new FormData();
-    if (idEscuela != undefined) {
-      formData.append('idEscuela', JSON.stringify(idEscuela));
+    if (idEscuela != "") {
+      formData.append('idEscuela', idEscuela);
     }
     formData.append('nombre', nombre);
-    formData.append('cantidadAlumnos', cantidadAlumnos.toString());
-    formData.append('recursoFiscal', recursoFiscal.toString());
-    formData.append('licenciada', licenciada.toString());
-    formData.append('clasificacion', clasificacion.toString());
+    formData.append('cantidadAlumnos', cantidadAlumnos);
+    formData.append('recursoFiscal', recursoFiscal);
+    formData.append('licenciada', licenciada);
+    formData.append('clasificacion', clasificacion);
     formData.append('fechaRegistro', fechaRegistro);
-    formData.append('idFacultad', idFacultad.toString());
+    formData.append('idFacultad', idFacultad);
     return formData;
   }
 }

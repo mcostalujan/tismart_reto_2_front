@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Escuela } from 'src/app/model/escuela';
 import { DatePipe } from '@angular/common';
 import { NotificationService } from 'src/app/service/notification.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CustomHttpResponse } from 'src/app/model/custom-http-response';
@@ -16,6 +15,7 @@ import { CustomHttpResponse } from 'src/app/model/custom-http-response';
 })
 export class ListarEscuelasComponent implements OnInit {
   public listaEscuelas: Escuela[];
+
   constructor(
     private router: Router,
     private notificationService: NotificationService,

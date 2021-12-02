@@ -1,3 +1,4 @@
+import { EstadisticasComponent } from './component/estadisticas/estadisticas.component';
 import { EditarEscuelaComponent } from './component/editar-escuela/editar-escuela.component';
 import { GuardarEscuelaComponent } from './component/guardar-escuela/guardar-escuela.component';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path:'edit',
     component:EditarEscuelaComponent,
+  },
+  {
+    path:'statistics',
+    component:EstadisticasComponent,
   },
 ];
 

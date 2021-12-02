@@ -1,3 +1,4 @@
+import { EscuelaDto } from './../dto/escuelaDto';
 import { EscuelaService } from './../../service/escuela.service';
 import { FacultadService } from './../../service/facultad.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,9 +17,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class GuardarEscuelaComponent implements OnInit {
   public modeEdition: boolean;
-  public escuela: Escuela;
-  public facultad: Facultad;
+  public escuela: EscuelaDto;
   public facultades: Facultad[];
+  public idFacultad:bigint;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -29,8 +30,7 @@ export class GuardarEscuelaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.escuela = new Escuela();
-    this.escuela.facultad = new Facultad();
+    this.escuela = new EscuelaDto();
     this.route.queryParams.subscribe((params) => {
       this.modeEdition = params.modeEdition == 'true';
     });
@@ -45,46 +45,48 @@ export class GuardarEscuelaComponent implements OnInit {
       });
   }
 
-  public buscarEscuela(idEscuela: bigint): void{
-    this.escuelaService.obtenerEscuelaPorId(idEscuela).subscribe(
-      (response: Escuela) =>{
-        this.sendNotification(
-          NotificationType.SUCCESS,
-          `Escuela cargada exitosamente.`
-        );
-        this.escuela = response;
-      }
-    )
+  public convertirResponseToEscuelaDto(response:Escuela):void{
+    this.escuela.cantidadAlumnos = response.cantidadAlumnos.toString();
+    this.escuela.clasificacion = response.clasificacion.toString();
+    this.escuela.fechaRegistro = this.convertirFormatoDeFecha(response.fechaRegistro);
+    this.escuela.idEscuela = response.idEscuela.toString();
+    this.escuela.idFacultad  = response.facultad.idFacultad.toString();
+    this.escuela.licenciada = response.licenciada.toString();
+    this.escuela.nombre = response.nombre;
+    this.escuela.recursoFiscal = response.recursoFiscal.toString();
   }
 
-  public guardarEscuela(escuela: Escuela): void {
-      console.log(escuela)
-      escuela.fechaConFormato = this.convertirFormatoDeFecha(new Date());
-      const formData = this.escuelaService.createEscuelaSaveFormData(
-        this.escuela.idEscuela,
-        escuela.nombre,
-        escuela.cantidadAlumnos,
-        escuela.recursoFiscal,
-        escuela.licenciada,
-        escuela.clasificacion,
-        escuela.fechaConFormato,
-        escuela.facultad.idFacultad,
-      );
-      this.escuelaService.guardarEscuela(formData).subscribe(
-        (response: Escuela) => {
-          this.sendNotification(
-            NotificationType.SUCCESS,
-            `Escuela guardada exitosamente.`
-          );
-          this.router.navigate(['/']);
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.sendNotification(
-            NotificationType.ERROR,
-            errorResponse.error.message
-          );
-        }
-      );
+  public guardarEscuela(escuela: EscuelaDto): void {
+      console.log(escuela);
+      if(this.idFacultad!=undefined){
+        const formData = this.escuelaService.createEscuelaSaveFormData(
+          this.escuela.idEscuela,
+          escuela.nombre,
+          escuela.cantidadAlumnos,
+          escuela.recursoFiscal,
+          escuela.licenciada,
+          escuela.clasificacion,
+          escuela.fechaRegistro,
+          this.idFacultad.toString(),
+        );
+        this.escuelaService.guardarEscuela(formData).subscribe(
+          (response: Escuela) => {
+            this.sendNotification(
+              NotificationType.SUCCESS,
+              `Escuela guardada exitosamente.`
+            );
+            this.router.navigate(['/']);
+          },
+          (errorResponse: HttpErrorResponse) => {
+            this.sendNotification(
+              NotificationType.ERROR,
+              errorResponse.error.message
+            );
+          }
+        );
+      }else{
+        this.sendNotification(NotificationType.ERROR, `Seleccione Facultad.`);
+      }
     }
 
     private convertirFormatoDeFecha(fechaPorConvertir: Date): string {

@@ -32,9 +32,10 @@
 
           <div class="column col-2">
             <label>Facultad</label>
-            <select style="max-width: 65%;" name="facultad" required [(ngModel)]="escuela.facultad" class="form-control">
-              <option *ngFor="let facultad of facultades" [ngValue]="facultad">
-                {{ facultad.nombre }}
+            <select style="max-width: 65%;" name="facultad" required [(ngModel)]="idFacultad"
+              class="form-control">
+              <option *ngFor="let facultadTemp of facultades" [ngValue]="facultadTemp.idFacultad">
+                {{ facultadTemp.nombre }}
               </option>
             </select>
           </div>
@@ -48,8 +49,13 @@
             </select>
           </div>
 
-          <div class="submit col-4" style="margin-top: 10px;">
-            <button>GUARDAR CAMBIOS</button>
+          <div class="column col-4">
+            <label style="margin-right: 10px;">Fecha de Registro</label>
+            <input name="fechaRegistro" type="date" [(ngModel)]="escuela.fechaRegistro" />
+          </div>
+
+          <div class="col-4" style="margin-top: 10px;">
+            <button class="guardarButton">GUARDAR CAMBIOS</button>
           </div>
         </div>
       </form>

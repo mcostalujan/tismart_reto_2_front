@@ -1,0 +1,71 @@
+<body>
+  <main>
+    <div class="column col-12" style="margin-top: 70px; margin-left: 30%; margin-right: 10%;">
+      <label><strong>SELECCIONE FECHA: </strong></label>&nbsp;
+      <input name="filtroFecha" type="date" [(ngModel)]="filtroFecha" />
+      <a class="filtrarButton" (click)="buscarEscuelasPorFiltroFecha()">
+        FILTRAR
+      </a>
+      <a class="limpiarFiltrosButton" (click)="limpiarFiltros()">
+        LIMPIAR FILTROS
+      </a>
+    </div>
+    <h1 *ngIf="statisticsHabilitado"
+      style="margin-top: 50px;justify-content: center; align-items: center; display: flex;">LISTA DE ESCUELAS
+      REGISTRADAS EL {{filtroFecha}}</h1>
+    <form>
+      <div *ngIf="statisticsHabilitado" class="table-container"
+        style="margin-top: 50px;justify-content: center; align-items: center; display: flex;">
+        <br /><br />
+        <table class="table table-bordered" style="width:60%;">
+          <caption>Total: {{ listaEscuelas.length }}</caption>
+          <caption style="text-align: center;"><a class="exportarButton" (click)="exportarTablaEscuelasPorFecha()">
+              EXPORTAR TABLA A PDF
+            </a></caption>
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Total Alumnos</th>
+              <th>Recurso Fiscal</th>
+              <th>¿Licenciada?</th>
+              <th>Clasificación</th>
+              <th>Fecha Registro</th>
+              <th>Facultad</th>
+            </tr>
+          </thead>
+          <tr *ngFor="let escuela of listaEscuelas">
+            <td>{{ escuela?.idEscuela }}</td>
+            <td>{{ escuela?.nombre }}</td>
+            <td>{{ escuela?.cantidadAlumnos }}</td>
+            <td>{{ escuela?.recursoFiscal }}</td>
+            <td *ngIf="escuela?.licenciada">SI</td>
+            <td *ngIf="!escuela?.licenciada">NO</td>
+            <td>{{ escuela?.clasificacion }}</td>
+            <td>{{ escuela?.fechaConFormato }}</td>
+            <td>{{ escuela?.facultad?.nombre }}</td>
+          </tr>
+        </table>
+      </div>
+    </form>
+    <div *ngIf="statisticsHabilitado"
+      style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+      <table>
+        <tr>
+          <th>
+            <img width="600px" height="400px" src={{barChartImage}}>
+          </th>
+          <th>
+            <img width="600px" height="400px" src={{pieChartImage}} />
+          </th>
+        </tr>
+        <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tr>
+        <tr>
+          <td style="text-align: center; "><a class="exportarButton" (click)="exportarBarChartEscuelasPorFecha()">EXPORTAR BAR CHART A PDF</a></td>
+          <td style="text-align: center; "><a class="exportarButton" (click)="exportarPieChartEscuelasPorFecha()">EXPORTAR PIE CHART A PDF</a></td>
+        </tr>
+        <tr>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tr>
+      </table>
+    </div>
+  </main>
+</body>

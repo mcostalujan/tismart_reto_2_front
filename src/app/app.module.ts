@@ -11,13 +11,15 @@ import { GuardarEscuelaComponent } from './component/guardar-escuela/guardar-esc
 import { NotificationService } from './service/notification.service';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { EditarEscuelaComponent } from './component/editar-escuela/editar-escuela.component';
+import { EstadisticasComponent } from './component/estadisticas/estadisticas.component';
 @NgModule({
   declarations: [
     AppComponent,
     ListarEscuelasComponent,
     GuardarEscuelaComponent,
     NavbarComponent,
-    EditarEscuelaComponent
+    EditarEscuelaComponent,
+    EstadisticasComponent
   ],
   imports: [
     BrowserModule,
