@@ -28,6 +28,7 @@ export class ListarEscuelasComponent implements OnInit {
     this.obtenerTodasLasEscuelas();
   }
 
+
   public obtenerTodasLasEscuelas(): void {
     this.listaEscuelas = [];
     this.escuelaService

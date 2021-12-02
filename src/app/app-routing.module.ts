@@ -1,31 +1,43 @@
-import { EstadisticasComponent } from './component/estadisticas/estadisticas.component';
-import { EditarEscuelaComponent } from './component/editar-escuela/editar-escuela.component';
-import { GuardarEscuelaComponent } from './component/guardar-escuela/guardar-escuela.component';
+import { ListarEscuelasComponent } from './component/listar-escuelas/listar-escuelas.component';
+import { AuthenticationGuard } from './guard/authentication.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListarEscuelasComponent } from './component/listar-escuelas/listar-escuelas.component';
+import { EditarEscuelaComponent } from './component/editar-escuela/editar-escuela.component';
+import { EstadisticasComponent } from './component/estadisticas/estadisticas.component';
+import { GuardarEscuelaComponent } from './component/guardar-escuela/guardar-escuela.component';
+import { LoginComponent } from './component/login/login.component';
+import { RegisterComponent } from './component/register/register.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
-    path:'',
-    component:ListarEscuelasComponent,
+    path: 'index',
+    component: ListarEscuelasComponent, canActivate: [AuthenticationGuard]
   },
   {
-    path:'save',
-    component:GuardarEscuelaComponent,
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path:'edit',
-    component:EditarEscuelaComponent,
+    path: 'register',
+    component: RegisterComponent
   },
   {
-    path:'statistics',
-    component:EstadisticasComponent,
+    path: 'save',
+    component: GuardarEscuelaComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'edit',
+    component: EditarEscuelaComponent, canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'statistics',
+    component: EstadisticasComponent, canActivate: [AuthenticationGuard]
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

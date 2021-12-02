@@ -75,7 +75,7 @@ export class GuardarEscuelaComponent implements OnInit {
               NotificationType.SUCCESS,
               `Escuela guardada exitosamente.`
             );
-            this.router.navigate(['/']);
+            this.router.navigate(['/index']);
           },
           (errorResponse: HttpErrorResponse) => {
             this.sendNotification(

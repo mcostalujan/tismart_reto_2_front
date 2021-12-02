@@ -1,20 +1,12 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">ESCUELA APP</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarsExample02">
-    <ul class="navbar-nav mr-auto">
-      <li style="cursor: pointer;" class="nav-item">
-        <a class="nav-link" (click)="crearEscuela()">Ingresar</a>
-      </li>
-      <li style="cursor: pointer;" class="nav-item">
-        <a class="nav-link" (click)="editarEscuela()">Modificar</a>
-      </li>
-      <li style="cursor: pointer;" class="nav-item">
-        <a class="nav-link" (click)="verEstadisticas()">Estadísticas</a>
-      </li>
-    </ul>
+<div class="topnav">
+  <a style="cursor: pointer;background-color: #3079b4; color: white;"  (click)="goToIndex()">ESCUELA APP</a>
+  <a style="cursor: pointer;"  (click)="crearEscuela()">Nuevo</a>
+  <a style="cursor: pointer;"  (click)="editarEscuela()">Modificar</a>
+  <a style="cursor: pointer;"  (click)="verEstadisticas()">Estadísticas</a>
+  <div *ngIf="isLoggedIn" class="login-container" >
+    <form>
+      <a>Bienvenido</a>
+      <button style="cursor: pointer;" class="btn btn-danger" (click)="onLogOut()">Log Out</button>
+    </form>
   </div>
-</nav>
+</div>
