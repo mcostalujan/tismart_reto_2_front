@@ -133,7 +133,7 @@ export class EditarEscuelaComponent implements OnInit{
   }
 
   private convertirFormatoDeFecha(fechaPorConvertir: Date): string {
-    return this.datepipe.transform(fechaPorConvertir, 'yyyy-MM-dd');
+    return this.datepipe.transform(fechaPorConvertir, 'yyyy-MM-dd','UTC');
   }
 
   private sendNotification(

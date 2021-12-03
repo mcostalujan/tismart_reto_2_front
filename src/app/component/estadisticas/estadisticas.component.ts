@@ -35,7 +35,7 @@ export class EstadisticasComponent implements OnInit {
   }
 
   private convertirFormatoDeFecha(fechaPorConvertir: Date): string {
-    return this.datepipe.transform(fechaPorConvertir, 'yyyy-MM-dd');
+    return this.datepipe.transform(fechaPorConvertir, 'yyyy-MM-dd','UTC');
   }
 
   public buscarEscuelasPorFiltroFecha(): void {

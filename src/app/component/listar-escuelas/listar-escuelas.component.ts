@@ -44,7 +44,7 @@ export class ListarEscuelasComponent implements OnInit {
   }
 
   private convertirFormatoDeFecha(fechaPorConvertir: Date): string {
-    return this.datepipe.transform(fechaPorConvertir, 'yyyy-MM-dd');
+    return this.datepipe.transform(fechaPorConvertir, 'yyyy-MM-dd','UTC');
   }
 
   public eliminarEscuela(escuela: Escuela): void {
